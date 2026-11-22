@@ -5,3 +5,5 @@ build
 dist/*
 dist
 .pycache
+installer/build/*
+installer/build
