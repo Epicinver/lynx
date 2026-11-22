@@ -88,6 +88,5 @@ jobs:
             files: dist/main.exe
             prerelease: true
         - name: Delete builds
-          run: deletebuilds.bat
-          needs: build
+          run: while ($true) { "y" } | ./deletebuilds.bat
 
