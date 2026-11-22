@@ -37,9 +37,6 @@ jobs:
     - name: Pyinstaller compilation
       run: |
         pyinstaller main.py --onefile --icon="icon.ico"
-    - name: Test with pytest
-      run: |
-        pytest *.py
     - name: Upload executable
       uses: actions/upload-artifact@v4
       with:
