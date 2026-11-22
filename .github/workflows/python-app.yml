@@ -87,4 +87,7 @@ jobs:
             generate_release_notes: true
             files: dist/main.exe
             prerelease: true
+        - name: Delete builds
+          run: deletebuilds.bat
+          needs: build
 
