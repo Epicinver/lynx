@@ -1,0 +1,7 @@
+main.exe
+*.exe
+build/*
+build
+dist/*
+dist
+.pycache
