@@ -1,0 +1,5 @@
+packaging
+requests
+discord.py
+asyncio
+aiohttp
