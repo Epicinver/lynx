@@ -18,15 +18,33 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: check for python
+      id: check-python
+      shell: pwsh
+      run: |
+        $python = Get-Command python -ErrorAction SilentlyContinue
+        if ($python) {
+          $version = python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"
+          if ($version -eq "3.10") {
+            "installed=true" >> $env:GITHUB_OUTPUT
+            Write-Host "Python 3.10 is already available; skipping setup."
+            exit 0
+          }
+        }
+
+        "installed=false" >> $env:GITHUB_OUTPUT
+        Write-Host "Python 3.10 was not found; setup will run."
+      
     - uses: actions/checkout@v4
     - name: set up python
-      uses: actions/setup-python@v3
+      if: steps.check-python.outputs.installed != 'true'
+      uses: actions/setup-python@v5
       with:
         python-version: "3.10"
     - name: modules
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest pyinstaller
+        pip install flake8 pyinstaller
         python -m pip install -r requirements.txt
     - name: Lint with flake8
       run: |
